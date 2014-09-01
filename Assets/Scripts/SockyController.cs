@@ -4,6 +4,7 @@ using System.Collections;
 public class SockyController : MonoBehaviour {
 
 	public float maxSpeed= 10f;
+	private float speed;
 	static public float jumpForce = 400f;
 	public Transform groundCheck;
 	float groundRadius = .2f;
@@ -18,6 +19,7 @@ public class SockyController : MonoBehaviour {
 	bool doubleJump = false;
 	bool facingRight = true;
 	private float move;
+	private float duck;
 	GameObject rotateAround;
 	static public float health = 5f;
 	private Animator animator;
@@ -33,15 +35,15 @@ public class SockyController : MonoBehaviour {
 	void Start () {
 		jumpAnimInt = 0;
 		SockComponents = GameObject.Find ("SockComponents");
+		speed = maxSpeed;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		walkAnim ();
-		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 		move = Input.GetAxis ("Horizontal");
 		//move left and right
-		SockComponents.rigidbody2D.velocity = new Vector2 (move * maxSpeed, SockComponents.rigidbody2D.velocity.y);
+		SockComponents.rigidbody2D.velocity = new Vector2 (move * speed, SockComponents.rigidbody2D.velocity.y);
 		//flip character
 		if (move > 0 && !facingRight) {
 				Flip ();
@@ -54,6 +56,9 @@ public class SockyController : MonoBehaviour {
 	void Update(){
 		jumping ();
 		jumpAnim ();
+		ducking ();
+		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+		playerFriction ();
 		}
 
 	void Flip(){
@@ -90,14 +95,31 @@ public class SockyController : MonoBehaviour {
 						animator.SetBool ("jump", false);
 			jumpAnimInt = 0;
 				}
-
-
 		}
+
+	void ducking(){
+		duck = Input.GetAxis ("Vertical");
+		if(grounded && duck < 0) {
+			animator.SetBool("duck", true);
+			speed = 0.6f * maxSpeed;
+		}else {
+			animator.SetBool("duck", false);
+			speed = maxSpeed;
+		}
+	}
+
+	void playerFriction() {
+		if (!grounded) {
+			transform.collider2D.sharedMaterial.friction = 0.0f;
+		} else {
+			transform.collider2D.sharedMaterial.friction = 0.5f;
+		}
+	}
 
 	void isDead(){
-				if (health <= 0) {
+		if (health <= 0) {
 			Destroy(SockComponents);
-				}
 		}
+	}
 
 }
