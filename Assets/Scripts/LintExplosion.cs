@@ -17,7 +17,7 @@ public class LintExplosion : MonoBehaviour
 		// Register the singleton
 		if (Instance != null)
 		{
-			Debug.LogError("Multiple instances of SpecialEffectsHelper!");
+			//Debug.LogError("Multiple instances of SpecialEffectsHelper!");
 		}
 		
 		Instance = this;

@@ -17,7 +17,7 @@ public class SockyController : MonoBehaviour {
 	float characterY;
 	bool grounded = false;
 	bool doubleJump = false;
-	bool facingRight = true;
+	static public bool facingRight = true;
 	private float move;
 	private float duck;
 	GameObject rotateAround;
@@ -121,5 +121,4 @@ public class SockyController : MonoBehaviour {
 			Destroy(SockComponents);
 		}
 	}
-
 }

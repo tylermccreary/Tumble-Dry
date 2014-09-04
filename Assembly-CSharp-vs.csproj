@@ -47,11 +47,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\ElasticCol.cs" />
+     <Compile Include="Assets\Scripts\ElasticMove.cs" />
      <Compile Include="Assets\Scripts\Finish.cs" />
      <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\Lint.cs" />
      <Compile Include="Assets\Scripts\LintExplosion.cs" />
      <Compile Include="Assets\Scripts\PowerJump.cs" />
+     <Compile Include="Assets\Scripts\Shoot.cs" />
      <Compile Include="Assets\Scripts\SockyController.cs" />
      <Compile Include="Assets\Scripts\SpinRight.cs" />
   </ItemGroup>
