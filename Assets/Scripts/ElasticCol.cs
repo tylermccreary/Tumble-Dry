@@ -6,19 +6,23 @@ public class ElasticCol : MonoBehaviour {
 	public LayerMask enemyLayer;
 	private string enemy;
 
-	void Awake(){
+	void Awake()
+	{
 		//enemy = LayerMask.LayerToName(enemyLayer);
-		}
+	}
 
 
-	void OnCollisionEnter2D(Collision2D coll){
-		if(coll.gameObject.layer == 11 ){//LayerMask.NameToLayer(enemy)){
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		if(coll.gameObject.layer == 11 )	//LayerMask.NameToLayer(enemy)){
+		{
 			LintExplosion.Instance.Explosion(coll.gameObject.transform.position);
 			Destroy(coll.gameObject);
 		}
-		if (coll.gameObject.layer != 8) {
-						Destroy (gameObject);
-						Shoot.elasticNum -= 1;
-				}
+		if (coll.gameObject.layer != 8) 
+		{
+			Destroy (gameObject);
+			Shoot.elasticNum -= 1;
+		}
 	}
 }

@@ -9,16 +9,19 @@ public class PowerJump : MonoBehaviour {
 	GameObject lint;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		powerJump = false;
 		lint = GameObject.Find ("lint");
 		powerJumpRadius = transform.GetComponent<CircleCollider2D> ().radius;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		powerJump = Physics2D.OverlapCircle (transform.position, powerJumpRadius, player);
-		if (powerJump) {
+		if (powerJump) 
+		{
 			SockyController.jumpForce = SockyController.jumpForce * 2;
 			Destroy (gameObject);
 			powerJump = false;

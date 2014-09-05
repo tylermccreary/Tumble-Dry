@@ -9,7 +9,8 @@ public class Lint : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		lintRadius = transform.GetComponent<CircleCollider2D> ().radius;
 	}
 	
@@ -18,14 +19,16 @@ public class Lint : MonoBehaviour {
 		
 	}
 
-	void FixedUpdate(){
+	void FixedUpdate()
+	{
 		hit = Physics2D.OverlapCircle (transform.position, lintRadius, player);
 		if(hit){
 			damage();
 		}
-		}
+	}
 
-	void damage(){
+	void damage()
+	{
 		Destroy (gameObject);
 		SockyController.health = SockyController.health - 1;
 		LintExplosion.Instance.Explosion(transform.position);

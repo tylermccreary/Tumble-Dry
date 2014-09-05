@@ -11,22 +11,27 @@ public class Shoot : MonoBehaviour {
 	public GameObject shootPoint;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		elasticNum = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		shoot = Input.GetButtonDown ("Fire1");
-		if (shoot) {
+		if (shoot) 
+		{
 			shootElastic ();
 		}
 	}
 
-	void shootElastic() {
-				if (elasticNum < maxElastic) {
-						GameObject elastic = (GameObject) Instantiate (elasticPic, new Vector3 (shootPoint.transform.position.x, shootPoint.transform.position.y, 0), Quaternion.identity);
-						elasticNum += 1;
-				}
+	void shootElastic() 
+	{
+		if (elasticNum < maxElastic) 
+		{
+			GameObject elastic = (GameObject) Instantiate (elasticPic, new Vector3 (shootPoint.transform.position.x, shootPoint.transform.position.y, 0), Quaternion.identity);
+			elasticNum += 1;
 		}
+	}
 }

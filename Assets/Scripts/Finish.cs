@@ -9,13 +9,15 @@ public class Finish : MonoBehaviour {
 	private bool finish;
 	
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		finishRadius = transform.GetComponent<CircleCollider2D> ().radius;
 		socky = GameObject.Find ("SockComponents");
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		finish = Physics2D.OverlapCircle (transform.position, finishRadius, player);
 		if (finish) {
 			Destroy(socky);
