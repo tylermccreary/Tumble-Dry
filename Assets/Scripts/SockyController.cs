@@ -69,7 +69,6 @@ public class SockyController : MonoBehaviour {
 		jumpAnim ();
 		ducking ();
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
-		Debug.LogError (grounded);
 		playerFriction ();
 	}
 

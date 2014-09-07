@@ -45,6 +45,9 @@ public class LintExplosion : MonoBehaviour
 			position,
 			Quaternion.identity
 			) as ParticleSystem;
+
+		newParticleSystem.renderer.sortingLayerName = "Foreground";
+		newParticleSystem.renderer.sortingOrder = 2;
 		
 		// Make sure it will be destroyed
 		Destroy(

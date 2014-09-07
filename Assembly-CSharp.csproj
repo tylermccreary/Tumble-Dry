@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CircleEdgeCollider2D.cs" />
+     <Compile Include="Assets\Scripts\DryerHoles.cs" />
      <Compile Include="Assets\Scripts\ElasticCol.cs" />
      <Compile Include="Assets\Scripts\ElasticMove.cs" />
      <Compile Include="Assets\Scripts\Finish.cs" />

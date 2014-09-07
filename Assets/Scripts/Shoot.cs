@@ -31,6 +31,7 @@ public class Shoot : MonoBehaviour {
 		if (elasticNum < maxElastic) 
 		{
 			GameObject elastic = (GameObject) Instantiate (elasticPic, new Vector3 (shootPoint.transform.position.x, shootPoint.transform.position.y, 0), Quaternion.identity);
+			elastic.renderer.sortingLayerName = "Foreground";
 			elasticNum += 1;
 		}
 	}
