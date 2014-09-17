@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Lint.cs" />
      <Compile Include="Assets\Scripts\LintExplosion.cs" />
      <Compile Include="Assets\Scripts\PowerJump.cs" />
+     <Compile Include="Assets\Scripts\PowerUpEffect.cs" />
      <Compile Include="Assets\Scripts\PulseGlow.cs" />
      <Compile Include="Assets\Scripts\Shock.cs" />
      <Compile Include="Assets\Scripts\Shoot.cs" />

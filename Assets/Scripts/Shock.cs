@@ -7,6 +7,7 @@ public class Shock : MonoBehaviour {
 	public LayerMask player;
 	private bool shock;
 	private GameObject enemy;
+
 	
 	void Start()
 	{
