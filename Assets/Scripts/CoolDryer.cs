@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoolDryer : MonoBehaviour {
+public class CoolDryer : MonoBehaviour
+{
 	
-	private float waterRadius;
-	public LayerMask player;
-	private bool water;
+		private float waterRadius;
+		public LayerMask player;
+		private bool water;
 
-	void Start()
-	{
-		waterRadius = transform.GetComponent<CircleCollider2D> ().radius;
-	}
-
-	void Update()
-	{
-		water = Physics2D.OverlapCircle (transform.position, waterRadius, player);
-		if (water) 
+		void Start ()
 		{
-			Destroy(gameObject);
-			Heat.heat = 0;
+				waterRadius = transform.GetComponent<CircleCollider2D> ().radius;
 		}
-	}
+
+		void Update ()
+		{
+				water = Physics2D.OverlapCircle (transform.position, waterRadius, player);
+				if (water) {
+						Destroy (gameObject);
+						Heat.resetHeat ();
+				}
+		}
 }

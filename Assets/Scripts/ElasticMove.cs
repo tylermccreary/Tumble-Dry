@@ -35,6 +35,6 @@ public class ElasticMove : MonoBehaviour
 
 		void facingRight ()
 		{
-				faceRight = SockyController.facingRight;
+				faceRight = SockyController.isFacingRight ();
 		}
 }

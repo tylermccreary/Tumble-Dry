@@ -26,7 +26,7 @@ public class Lint : MonoBehaviour
 		void damage ()
 		{
 				Destroy (gameObject);
-				SockyController.health = SockyController.health - 1;
+				SockyController.doDamage (1);
 				LintExplosion.Instance.Explosion (transform.position);
 		}
 }

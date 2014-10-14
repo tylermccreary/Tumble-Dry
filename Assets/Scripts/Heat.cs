@@ -4,10 +4,10 @@ using System.Collections;
 public class Heat : MonoBehaviour
 {
 		private SpriteRenderer heatRing;
-		static public float heatFactor;
+		private static float heatFactor;
 		private float heatRatio;
 		private float maxHeat = 100f;
-		static public float heat = 0.0f;
+		private static float heat = 0.0f;
 		private Color cool;
 		private Color hot;
 		private float coolr;
@@ -43,5 +43,20 @@ public class Heat : MonoBehaviour
 		public void UpdateHeatColor ()
 		{
 				heatRing.material.color = Color.Lerp (cool, hot, heatFactor);
+		}
+
+		public static float getHeat ()
+		{
+				return heat;
+		}
+
+		public static void resetHeat ()
+		{
+				heat = 0;
+		}
+
+		public static float getHeatFactor ()
+		{
+				return heatFactor;
 		}
 }

@@ -20,7 +20,7 @@ public class ElasticCol : MonoBehaviour
 				}
 				if (coll.gameObject.layer != 8) {
 						Destroy (gameObject);
-						Shoot.elasticNum -= 1;
+						Shoot.changeElasticNum (-1);
 				}
 		}
 }

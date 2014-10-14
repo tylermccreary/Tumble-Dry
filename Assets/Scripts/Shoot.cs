@@ -6,7 +6,7 @@ public class Shoot : MonoBehaviour
 
 		public bool shoot;
 		public GameObject elasticPic;
-		static public int elasticNum;
+		private static int elasticNum;
 		public bool facingRight;
 		public int maxElastic = 10;
 		public GameObject shootPoint;
@@ -33,5 +33,10 @@ public class Shoot : MonoBehaviour
 						elastic.renderer.sortingLayerName = "Foreground";
 						elasticNum += 1;
 				}
+		}
+
+		public static void changeElasticNum (int amount)
+		{
+				elasticNum = elasticNum + amount;
 		}
 }

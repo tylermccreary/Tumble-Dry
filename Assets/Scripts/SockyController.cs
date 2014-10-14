@@ -6,7 +6,8 @@ public class SockyController : MonoBehaviour
 
 		public float maxSpeed = 10f;
 		private float speed;
-		static public float jumpForce = 400f;
+		private static float jumpForce = 400f;
+		private static bool powerJump = false;
 		public Transform groundCheck;
 		float groundRadius = .2f;
 		public float finishRadius = 1f;
@@ -18,17 +19,20 @@ public class SockyController : MonoBehaviour
 		float characterY;
 		bool grounded = false;
 		bool doubleJump = false;
-		static public bool facingRight = true;
-		static public float health = 5f;
+		private static bool facingRight = true;
+		private static int health = 5;
 		private float move;
 		private float duck;
 		private Animator animator;
 		private bool jump;
 		private int jumpAnimInt;
 		private GameObject SockComponents;
+		private float timerPrev;
+		private float timerNow;
 
 		void Awake ()
 		{
+				timerPrev = 0;
 				animator = GetComponent<Animator> ();
 		}
 
@@ -84,9 +88,15 @@ public class SockyController : MonoBehaviour
 
 		void jumping ()
 		{
-				if ((grounded || doubleJump) && Input.GetButtonDown ("Jump")) {
+				if (grounded && Input.GetButtonDown ("Jump")) {
 						SockComponents.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
-						doubleJump = !doubleJump;
+						doubleJump = true;
+						jump = true;
+						timerPrev = timerNow;
+						timerNow = Time.time;
+				} else if (doubleJump && Input.GetButtonDown ("Jump")) {
+						SockComponents.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
+						doubleJump = false;
 						jump = true;
 				}
 		}
@@ -131,5 +141,33 @@ public class SockyController : MonoBehaviour
 				if (health <= 0) {
 						Destroy (SockComponents);
 				}
+		}
+
+		public static bool getPowerJump ()
+		{
+				return powerJump;
+		}
+
+		public static void setPowerJump ()
+		{
+				if (!powerJump) {
+						jumpForce = jumpForce * 2;
+				}
+				powerJump = true;
+		}
+
+		public static void doDamage (int amount)
+		{
+				health -= amount;
+		}
+
+		public static bool isFacingRight ()
+		{
+				return facingRight;
+		}
+
+		public static int getHealth ()
+		{
+				return health;
 		}
 }
