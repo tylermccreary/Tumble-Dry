@@ -29,11 +29,15 @@ public class SockyController : MonoBehaviour
 		private GameObject SockComponents;
 		private float timerPrev;
 		private float timerNow;
+		private float jumpSinRatio;
+		private float timerDif;
+		private static float powerJumpRatio;
 
 		void Awake ()
 		{
 				timerPrev = 0;
 				animator = GetComponent<Animator> ();
+				powerJumpRatio = 1.2f;
 		}
 
 		// Use this for initialization
@@ -62,6 +66,7 @@ public class SockyController : MonoBehaviour
 
 		void Update ()
 		{
+				jumpSin ();
 				jumping ();
 				jumpAnim ();
 				ducking ();
@@ -92,10 +97,9 @@ public class SockyController : MonoBehaviour
 						SockComponents.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
 						doubleJump = true;
 						jump = true;
-						timerPrev = timerNow;
-						timerNow = Time.time;
+						timerPrev = Time.time;
 				} else if (doubleJump && Input.GetButtonDown ("Jump")) {
-						SockComponents.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
+						SockComponents.rigidbody2D.AddForce (new Vector2 (0, jumpForce * jumpSinRatio));
 						doubleJump = false;
 						jump = true;
 				}
@@ -113,6 +117,18 @@ public class SockyController : MonoBehaviour
 						animator.SetBool ("jump", false);
 						jumpAnimInt = 0;
 				}
+		}
+
+		void jumpSin ()
+		{
+				timerNow = Time.time;
+				timerDif = (timerNow - timerPrev);// / 1000;
+				if (timerDif < 1) {
+						jumpSinRatio = Mathf.Sin (timerDif) * 2.5f;
+				} else {
+						jumpSinRatio = 1;
+				}
+				Debug.Log (jumpSinRatio);
 		}
 
 		void ducking ()
@@ -151,7 +167,7 @@ public class SockyController : MonoBehaviour
 		public static void setPowerJump ()
 		{
 				if (!powerJump) {
-						jumpForce = jumpForce * 2;
+						jumpForce = jumpForce * powerJumpRatio;
 				}
 				powerJump = true;
 		}
