@@ -1,16 +1,15 @@
 fileFormatVersion: 2
-guid: 278256e533e884e4aa2ba7c11c7c658e
+guid: 9e8ee866fe1f27140a3d176a72e135ee
 TextureImporter:
   fileIDToRecycleName:
-    21300000: blocks
-    21300002: blocks_1
-    21300004: blocks_2H
-    21300006: blocks_5H
-    21300008: blocks_2V
+    21300000: blocks_1
+    21300002: blocks_2h
+    21300004: blocks_5h
+    21300006: blocks_2v
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -30,7 +29,7 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: 1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -51,40 +50,40 @@ TextureImporter:
     - name: blocks_1
       rect:
         serializedVersion: 2
-        x: 27
-        y: 621
-        width: 207
-        height: 106
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: blocks_2H
-      rect:
-        serializedVersion: 2
-        x: 402
-        y: 600
-        width: 406
+        x: 26
+        y: 620
+        width: 209
         height: 107
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: blocks_5H
+    - name: blocks_2h
       rect:
         serializedVersion: 2
-        x: 0
-        y: 350
-        width: 1006
-        height: 106
+        x: 399
+        y: 599
+        width: 408
+        height: 109
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: blocks_2V
+    - name: blocks_5h
       rect:
         serializedVersion: 2
-        x: 202
+        x: 0
+        y: 349
+        width: 1006
+        height: 108
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blocks_2v
+      rect:
+        serializedVersion: 2
+        x: 204
         y: 0
-        width: 206
-        height: 206
+        width: 208
+        height: 207
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

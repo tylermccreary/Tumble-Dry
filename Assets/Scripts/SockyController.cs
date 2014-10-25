@@ -53,6 +53,7 @@ public class SockyController : MonoBehaviour
 		{
 				walkAnim ();
 				move = Input.GetAxis ("Horizontal");
+				Debug.Log ("hello" + move);
 				//move left and right
 				SockComponents.rigidbody2D.velocity = new Vector2 (move * speed, SockComponents.rigidbody2D.velocity.y);
 				//flip character
@@ -128,7 +129,6 @@ public class SockyController : MonoBehaviour
 				} else {
 						jumpSinRatio = 1;
 				}
-				Debug.Log (jumpSinRatio);
 		}
 
 		void ducking ()

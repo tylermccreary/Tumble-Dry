@@ -8,12 +8,6 @@ public class ElasticMove : MonoBehaviour
 		public float shootingForce = 200f;
 		private bool forceAdded = false;
 		public LayerMask enemy;
-
-		// Use this for initialization
-		void Start ()
-		{
-	
-		}
 	
 		// Update is called once per frame
 		void Update ()
