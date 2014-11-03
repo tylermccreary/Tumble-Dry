@@ -54,25 +54,25 @@ public class SockyController : MonoBehaviour
 				walkAnim ();
 				move = Input.GetAxis ("Horizontal");
 				Debug.Log ("hello" + move);
-				//move left and right
 				SockComponents.rigidbody2D.velocity = new Vector2 (move * speed, SockComponents.rigidbody2D.velocity.y);
-				//flip character
 				if (move > 0 && !facingRight) {
 						Flip ();
 				} else if (move < 0 && facingRight) {
 						Flip ();
 				}
 				isDead ();
+				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+				playerFriction ();
+				jumpSin ();
+				jumping ();
 		}
 
 		void Update ()
 		{
-				jumpSin ();
-				jumping ();
+				
 				jumpAnim ();
 				ducking ();
-				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
-				playerFriction ();
+				
 		}
 
 		void Flip ()
