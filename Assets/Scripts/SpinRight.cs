@@ -4,7 +4,7 @@ using System.Collections;
 public class SpinRight : MonoBehaviour
 {
 
-		public int speed = 10;
+		public static readonly int speed = 10;
 
 		// Update is called once per frame
 		void FixedUpdate ()

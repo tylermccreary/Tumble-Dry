@@ -51,31 +51,33 @@ public class SockyController : MonoBehaviour
 		// Update is called once per frame
 		void FixedUpdate ()
 		{
-				walkAnim ();
 				move = Input.GetAxis ("Horizontal");
-				Debug.Log ("hello" + move);
 				SockComponents.rigidbody2D.velocity = new Vector2 (move * speed, SockComponents.rigidbody2D.velocity.y);
-				if (move > 0 && !facingRight) {
-						Flip ();
-				} else if (move < 0 && facingRight) {
-						Flip ();
-				}
+				facingDirection ();
 				isDead ();
 				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 				playerFriction ();
 				jumpSin ();
-				jumping ();
 		}
 
 		void Update ()
 		{
-				
+				jumping ();
+				walkAnim ();
 				jumpAnim ();
 				ducking ();
-				
 		}
 
-		void Flip ()
+		void facingDirection ()
+		{
+				if (move > 0 && !facingRight) {
+						flip ();
+				} else if (move < 0 && facingRight) {
+						flip ();
+				}
+		}
+
+		void flip ()
 		{
 				facingRight = !facingRight;
 				Vector2 theScale = transform.localScale;
