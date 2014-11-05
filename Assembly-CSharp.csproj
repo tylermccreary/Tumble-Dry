@@ -200,6 +200,7 @@
      <Compile Include="Assets\Scripts\SockyController.cs" />
      <Compile Include="Assets\Scripts\SpinRight.cs" />
      <Compile Include="Assets\Scripts\StationaryUpDown.cs" />
+     <Compile Include="Assets\Scripts\UpDownWithParent.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.6.4b.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
