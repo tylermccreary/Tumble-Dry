@@ -39,15 +39,15 @@ public class UpDownWithParent : MonoBehaviour
 						i += Time.deltaTime * rate;
 						if (goUp) {
 								if (up) {
-										transform.position = Vector2.Lerp (currentPos, parentPos + intercept, i);
+										transform.position = Vector2.Lerp (currentPos, parentPos + intercept / 2, i);
 								} else {
-										transform.position = Vector2.Lerp (currentPos, parentPos, i);
+										transform.position = Vector2.Lerp (currentPos, parentPos - intercept / 2, i);
 								}
 						} else {
 								if (up) {
-										transform.position = Vector2.Lerp (currentPos, parentPos - intercept, i);
+										transform.position = Vector2.Lerp (currentPos, parentPos - intercept / 2, i);
 								} else {
-										transform.position = Vector2.Lerp (currentPos, parentPos, i);
+										transform.position = Vector2.Lerp (currentPos, parentPos + intercept / 2, i);
 								}
 						}
 						yield return null;

@@ -6,7 +6,7 @@ public class StationaryUpDown : MonoBehaviour
 		public bool goUp;
 		public float distance;
 		public float speed;
-		// Use this for initialization
+
 		IEnumerator Start ()
 		{
 		float interval = 10 / speed * distance;
@@ -20,10 +20,10 @@ public class StationaryUpDown : MonoBehaviour
 				while (true) {
 						yield return StartCoroutine (MoveObject (transform, pointA, pointB, interval));
 						yield return StartCoroutine (MoveObject (transform, pointB, pointA, interval));
+
 				}
 		}
-	
-		// Update is called once per frame
+
 		IEnumerator MoveObject (Transform thisTransform, Vector2 startPos, Vector2 endPos, float time)
 		{
 				float i = 0.0f;
