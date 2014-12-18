@@ -180,7 +180,6 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
-     <Compile Include="Assets\Scripts\Character\ElasticCol.cs" />
      <Compile Include="Assets\Scripts\Character\ElasticMove.cs" />
      <Compile Include="Assets\Scripts\Character\HealthBar.cs" />
      <Compile Include="Assets\Scripts\Character\Shoot.cs" />

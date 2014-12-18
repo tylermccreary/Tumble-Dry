@@ -1,19 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/** This is a class that controls the elastic that
+ * the player shoots.
+ **/
 public class ElasticMove : MonoBehaviour
 {
 
 		private bool faceRight;
 		public float shootingForce = 200f;
 		private bool forceAdded = false;
-		public LayerMask enemy;
-	
-		// Update is called once per frame
+
 		void Update ()
 		{
 				facingRight ();
 				elasticForce ();
+		}
+	
+		void OnCollisionEnter2D (Collision2D coll)
+		{
+			if (coll.gameObject.layer == 11) {
+				LintExplosion.Instance.Explosion (coll.gameObject.transform.position);
+				Destroy (coll.gameObject);
+			}
+			if (coll.gameObject.layer != 8) {
+				Destroy (gameObject);
+				Shoot.changeElasticNum (-1);
+			}
 		}
 
 		void elasticForce ()
