@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Lint : MonoBehaviour
 {
-
 		private bool hit;
 		private float lintRadius;
 		public LayerMask player;

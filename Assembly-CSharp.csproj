@@ -198,7 +198,9 @@
      <Compile Include="Assets\Scripts\PowerUps\PowerUpEffect.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PulseGlow.cs" />
      <Compile Include="Assets\Scripts\PowerUps\Shock.cs" />
+     <Compile Include="Assets\Scripts\SpecialMisc\Box.cs" />
      <Compile Include="Assets\Scripts\SpecialMisc\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\SpecialMisc\Crank.cs" />
      <Compile Include="Assets\Scripts\SpecialMisc\Finish.cs" />
      <Compile Include="Assets\Scripts\SpecialMisc\SpinRight.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
