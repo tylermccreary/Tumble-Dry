@@ -193,6 +193,7 @@
      <Compile Include="Assets\Scripts\Enemies\LintExplosion.cs" />
      <Compile Include="Assets\Scripts\Platforms\StationaryUpDown.cs" />
      <Compile Include="Assets\Scripts\Platforms\UpDownWithParent.cs" />
+     <Compile Include="Assets\Scripts\PowerUps\ChangeDryerSize.cs" />
      <Compile Include="Assets\Scripts\PowerUps\CoolDryer.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PowerJump.cs" />
      <Compile Include="Assets\Scripts\PowerUps\PowerUpEffect.cs" />

@@ -13,8 +13,8 @@ public class Crank : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-		crankRadius = transform.GetComponent<CircleCollider2D> ().radius;
-		animator = GetComponent<Animator> ();
+				crankRadius = transform.GetComponent<CircleCollider2D> ().radius;
+				animator = GetComponent<Animator> ();
 				pullCrank = false;
 				inRange = false;
 		}
@@ -32,6 +32,6 @@ public class Crank : MonoBehaviour
 		void triggerCrank ()
 		{
 				animator.SetTrigger ("turnCrank");
-		Box.openBox ();
+				Box.openBox ();
 		}
 }
