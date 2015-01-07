@@ -13,7 +13,6 @@ public class PowerJump : MonoBehaviour
 		void Start ()
 		{
 				powerJump = false;
-				lint = GameObject.Find ("lint");
 				powerJumpRadius = transform.GetComponent<CircleCollider2D> ().radius;
 		}
 	
@@ -28,8 +27,6 @@ public class PowerJump : MonoBehaviour
 						Destroy (gameObject);
 						PowerUpEffect.Instance.Explosion (transform.position);
 						powerJump = false;
-						LintExplosion.Instance.Explosion (lint.transform.position);
-						Destroy (lint);
 				}
 		}
 
