@@ -8,6 +8,7 @@ public class PowerJump : MonoBehaviour
 		private float powerJumpRadius;
 		public LayerMask player;
 		GameObject lint;
+		private const string JUMP = "jump";
 
 		// Use this for initialization
 		void Start ()
@@ -25,7 +26,7 @@ public class PowerJump : MonoBehaviour
 						//GameObject jumpParticle = (GameObject) Instantiate(effect, new Vector3(transform.position.x,
 						//                  transform.position.y, 0), Quaternion.identity);
 						Destroy (gameObject);
-						PowerUpEffect.Instance.Explosion (transform.position);
+						PowerUpEffect.Instance.Explosion (transform.position, JUMP);
 						powerJump = false;
 				}
 		}

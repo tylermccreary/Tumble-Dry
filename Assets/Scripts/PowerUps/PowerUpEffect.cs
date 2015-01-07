@@ -9,7 +9,13 @@ public class PowerUpEffect : MonoBehaviour
 		/// Singleton
 		/// </summary>
 		public static PowerUpEffect Instance;
-		public ParticleSystem effect;
+		public ParticleSystem jumpEffect;
+		public ParticleSystem waterEffect;
+		public ParticleSystem lightningEffect;
+		public ParticleSystem growEffect;
+		public ParticleSystem shrinkEffect;
+		
+		private ParticleSystem effect;
 	
 		void Awake ()
 		{
@@ -25,9 +31,20 @@ public class PowerUpEffect : MonoBehaviour
 		/// Create an explosion at the given location
 		/// </summary>
 		/// <param name="position"></param>
-		public void Explosion (Vector3 position)
+		public void Explosion (Vector3 position, string powerUp)
 		{
 				// Smoke on the water
+				if (powerUp == "jump") {
+						effect = jumpEffect;
+				} else if (powerUp == "water") {
+						effect = waterEffect;
+				} else if (powerUp == "lightning") {
+						effect = lightningEffect;
+				} else if (powerUp == "grow") {
+						effect = growEffect;
+				} else {
+						effect = shrinkEffect;
+				}
 				instantiate (effect, position);
 		}
 	

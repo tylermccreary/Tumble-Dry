@@ -8,6 +8,7 @@ public class Shock : MonoBehaviour
 		public LayerMask player;
 		private bool shock;
 		private GameObject enemy;
+		private const string LIGHTNING = "lightning";
 	
 		void Start ()
 		{
@@ -18,6 +19,7 @@ public class Shock : MonoBehaviour
 		{
 				shock = Physics2D.OverlapCircle (transform.position, shockRadius, player);
 				if (shock) {
+						PowerUpEffect.Instance.Explosion (transform.position, LIGHTNING);
 						Destroy (gameObject);
 						//find and destroy all enemies
 						object[] allEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
