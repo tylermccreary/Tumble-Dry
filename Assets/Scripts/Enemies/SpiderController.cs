@@ -5,15 +5,28 @@ public class SpiderController : MonoBehaviour
 {
 		private Transform player;
 		public float stillDelay;
+		public float jumpForce = 500f;
+		public float jumpDelay;
 		private Time startTime;
 		private Time currentTime;
 		public Transform leftWall;
 		public Transform rightWall;
 		public Transform groundCheck;
 		public Transform groundClose;
+		public Transform leftCheck;
+		public Transform rightCheck;
 		public float walkSpeed;
 		private float move;
+		private const float DIST_FROM_SOCK = 4.0f;
 		public Animator anim;
+		float groundRadius = 0.2f;
+		public LayerMask whatIsGround;
+		bool grounded = false;
+		private bool living = true;
+		private bool inAir = false;
+		private string wallDetected = "None";
+		private const string LEFT_WALL = "LeftWall";
+		private const string RIGHT_WALL = "RightWall";
 
 
 		public enum SpiderActionType
@@ -54,13 +67,13 @@ public class SpiderController : MonoBehaviour
 						break;
 
 				case SpiderActionType.WalkAway:
-						anim.speed = 3;
+						anim.speed = 6;
 						walkAway ();
 						break;
 			
 				case SpiderActionType.Jump:
 						anim.speed = 1;
-						jumpState ();
+						StartCoroutine (jumpState ());
 						break;
 			
 				case SpiderActionType.Land:
@@ -73,14 +86,19 @@ public class SpiderController : MonoBehaviour
 						shootState ();
 						break;
 				}
-
-				//if character shot
-				//change to jump depending on character height
+				/**if (spiderCurrent == SpiderActionType.Jump) {
+						spiderCurrent = SpiderActionType.Land;
+				} else {
+						grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+						//if character shot
+						if (Shoot.getElasticNum () != 0 && grounded) {
+								spiderCurrent = SpiderActionType.Jump;
+						}
+				}*/
 		}
-
+		
 		IEnumerator stillState ()
 		{
-				Debug.Log ("stillstate");
 				anim.speed = 1;
 				anim.Play ("Still");
 				yield return new WaitForSeconds (stillDelay);
@@ -89,48 +107,85 @@ public class SpiderController : MonoBehaviour
 
 		void walkState ()
 		{
-				Debug.Log ("walkstate");
-				//if no wall
-				if (player.transform.position.x < transform.position.x) {
-						//move left
-						move = -1.0f;
-						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
-						anim.Play ("Walk");
+				if (leftCheck.transform.position.x > leftWall.transform.position.x &&
+						rightCheck.transform.position.x < rightWall.transform.position.x) {
+						if (player.transform.position.x < transform.position.x - DIST_FROM_SOCK) {
+								//move left
+								move = -1.0f;
+								transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
+								anim.Play ("Walk");
+						} else if (player.transform.position.x > transform.position.x + DIST_FROM_SOCK) {
+								//move right
+								move = 1.0f;
+								transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
+								anim.Play ("WalkReverse");
+						} else {
+								anim.Play ("Still");
+						}
 				} else {
-						//move right
-						move = 1.0f;
-						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
-						anim.Play ("WalkReverse");
+						if (leftCheck.transform.position.x < leftWall.transform.position.x) {
+								wallDetected = LEFT_WALL;
+						} else {
+								wallDetected = RIGHT_WALL;
+						}
+						spiderCurrent = SpiderActionType.Shoot;
 				}
-				//else
-				//shoot
-				//change to walkAwayState
+				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+				//if character shot
+				if (Shoot.getElasticNum () != 0 && grounded) {
+						spiderCurrent = SpiderActionType.Jump;
+				}
 		}
-
+	
 		void walkAway ()
 		{
-				//walk to opposite side of player
-				//still state
+				if (player.transform.position.x < transform.position.x) {
+						//move left
+						move = 1.0f;
+						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * 2, rigidbody2D.velocity.y);
+						anim.Play ("WalkReverse");
+				} else if (player.transform.position.x > transform.position.x) {
+						//move right
+						move = -1.0f;
+						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * 2, rigidbody2D.velocity.y);
+						anim.Play ("Walk");
+				}
+				if (transform.position.x < 0 && wallDetected == RIGHT_WALL ||
+						transform.position.x > 0 && wallDetected == LEFT_WALL) {
+						/*leftCheck.transform.position.x < leftWall.transform.position.x && wallDetected == RIGHT_WALL ||
+				rightCheck.transform.position.x > rightWall.transform.position.x && wallDetected == LEFT_WALL*/
+						Debug.Log ("Hello");
+						spiderCurrent = SpiderActionType.Still;
+				}
 		}
 
-		void jumpState ()
+		IEnumerator jumpState ()
 		{
-				//jump anim
-				//add jump force
-				//wait for landing (use ground object)
-				//land
+				anim.Play ("Jump");
+				yield return new WaitForSeconds (jumpDelay);
+				if (!inAir) {
+						inAir = true;
+						this.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
+				}
+				spiderCurrent = SpiderActionType.Land;
 		}
 
 		void landState ()
 		{
 				//land
-				//walk toward player
+				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
+				if (grounded) {
+						inAir = false;
+						anim.Play ("Land");
+						spiderCurrent = SpiderActionType.Walk;
+				}
 		}
 
 		void shootState ()
 		{
 				//shoot
-				//walkaway
+		
+				spiderCurrent = SpiderActionType.WalkAway;
 		}
-
+	
 }

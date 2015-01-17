@@ -36,4 +36,8 @@ public class Shoot : MonoBehaviour
 		{
 				elasticNum = elasticNum + amount;
 		}
+
+		public static int getElasticNum() {
+				return elasticNum;
+		}
 }
