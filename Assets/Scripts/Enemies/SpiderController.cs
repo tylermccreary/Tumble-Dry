@@ -22,13 +22,14 @@ public class SpiderController : MonoBehaviour, IEnemy
 		public Animator anim;
 		float groundRadius = 0.2f;
 		bool grounded = false;
-		private bool living = true;
 		private bool inAir = false;
 		private string wallDetected = "None";
 		private const string LEFT_WALL = "LeftWall";
 		private const string RIGHT_WALL = "RightWall";
 		private static int health = 10;
-
+		public GameObject healthBar;
+		public GameObject goalPrefab;
+		private MonoBehaviour thisScript;
 
 		public enum SpiderActionType
 		{
@@ -37,7 +38,8 @@ public class SpiderController : MonoBehaviour, IEnemy
 				WalkAway,
 				Jump,
 				Land,
-				Shoot
+				Shoot,
+				Die
 		}
 
 		private SpiderActionType spiderCurrent = SpiderActionType.Still;
@@ -51,6 +53,7 @@ public class SpiderController : MonoBehaviour, IEnemy
 		// Use this for initialization
 		void Start ()
 		{
+				thisScript = (MonoBehaviour)GetComponent ("SpiderController");
 		}
 	
 		// Update is called once per frame
@@ -86,16 +89,12 @@ public class SpiderController : MonoBehaviour, IEnemy
 						anim.speed = 1;
 						shootState ();
 						break;
+
+				case SpiderActionType.Die:
+						anim.speed = 1;
+						die ();
+						break;
 				}
-				/**if (spiderCurrent == SpiderActionType.Jump) {
-						spiderCurrent = SpiderActionType.Land;
-				} else {
-						grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
-						//if character shot
-						if (Shoot.getElasticNum () != 0 && grounded) {
-								spiderCurrent = SpiderActionType.Jump;
-						}
-				}*/
 		}
 		
 		IEnumerator stillState ()
@@ -122,7 +121,8 @@ public class SpiderController : MonoBehaviour, IEnemy
 								transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
 								anim.Play ("WalkReverse");
 						} else {
-								anim.Play ("Still");
+								spiderCurrent = SpiderActionType.Jump;
+								//anim.Play ("Still");
 						}
 				} else {
 						if (leftCheck.transform.position.x < leftWall.transform.position.x) {
@@ -169,7 +169,8 @@ public class SpiderController : MonoBehaviour, IEnemy
 				yield return new WaitForSeconds (jumpDelay);
 				if (!inAir) {
 						inAir = true;
-						this.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
+						//this.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
+						this.rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, 10);
 				}
 				spiderCurrent = SpiderActionType.Land;
 		}
@@ -194,6 +195,23 @@ public class SpiderController : MonoBehaviour, IEnemy
 				}
 				spiderCurrent = SpiderActionType.WalkAway;
 		}
+	
+		public void die ()
+		{
+				anim.Play ("Die");
+				Destroy (healthBar);
+				transform.rigidbody2D.velocity = new Vector2 (0, transform.rigidbody2D.velocity.y);
+				transform.rigidbody2D.isKinematic = true;
+				GameObject goal = (GameObject)Instantiate (goalPrefab, new Vector3 (transform.position.x, transform.position.y + 5, 0), Quaternion.identity);
+				thisScript.enabled = false;
+		}
+
+		void OnCollisionEnter2D (Collision2D coll)
+		{
+				if (coll.gameObject.layer == 8 && spiderCurrent != SpiderActionType.Die) {
+						doDamage ();
+				}
+		}
 
 		public string getEnemyType ()
 		{
@@ -204,7 +222,7 @@ public class SpiderController : MonoBehaviour, IEnemy
 		{
 				health = health - amount;
 				if (health <= 0) {
-						die ();
+						spiderCurrent = SpiderActionType.Die;
 				}
 		}
 
@@ -213,14 +231,8 @@ public class SpiderController : MonoBehaviour, IEnemy
 				SockyController.doDamage (1);
 		}
 
-		public void die ()
+		public static int getHealth ()
 		{
-				//animate death
-				//delay
-				//show goal
-		}
-
-		public static int getHealth() {
 				return health;
 		}
 	
