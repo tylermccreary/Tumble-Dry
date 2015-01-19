@@ -19,14 +19,22 @@ public class ElasticMove : MonoBehaviour
 	
 		void OnCollisionEnter2D (Collision2D coll)
 		{
-			if (coll.gameObject.layer == 11) {
-				LintExplosion.Instance.Explosion (coll.gameObject.transform.position);
-				Destroy (coll.gameObject);
-			}
-			if (coll.gameObject.layer != 8) {
-				Destroy (gameObject);
-				Shoot.changeElasticNum (-1);
-			}
+				MonoBehaviour[] list = coll.gameObject.GetComponents<MonoBehaviour> ();
+				foreach (MonoBehaviour mb in list) {
+						if (mb is IEnemy) {
+								IEnemy enemy = (IEnemy)mb;
+								enemy.takeDamage(1);
+								break;
+						}
+				}
+				/*if (coll.gameObject.layer == 11) {
+						Destroy (coll.gameObject);
+						LintExplosion.Instance.Explosion (coll.gameObject.transform.position);
+				}*/
+				if (coll.gameObject.layer != 8) {
+						Destroy (gameObject);
+						Shoot.changeElasticNum (-1);
+				}
 		}
 
 		void elasticForce ()

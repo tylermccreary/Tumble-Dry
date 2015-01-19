@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Lint : MonoBehaviour
+public class Lint : MonoBehaviour, IEnemy
 {
 		private bool hit;
 		private float lintRadius;
@@ -18,14 +18,26 @@ public class Lint : MonoBehaviour
 		{
 				hit = Physics2D.OverlapCircle (transform.position, lintRadius, player);
 				if (hit) {
-						damage ();
+						doDamage ();
 				}
 		}
 
-		void damage ()
+		public void takeDamage(int amount) {
+				die ();
+		}
+
+		public void doDamage ()
 		{
+				SockyController.doDamage (1);				
+		}
+
+		public void die() {
 				Destroy (gameObject);
-				SockyController.doDamage (1);
 				LintExplosion.Instance.Explosion (transform.position);
+		}
+		
+		public string getEnemyType ()
+		{
+				return "lint";
 		}
 }

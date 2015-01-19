@@ -55,9 +55,11 @@
      <Compile Include="Assets\Scripts\Dryer\DryerHoles.cs" />
      <Compile Include="Assets\Scripts\Dryer\Heat.cs" />
      <Compile Include="Assets\Scripts\Enemies\Damage.cs" />
+     <Compile Include="Assets\Scripts\Enemies\IEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Lint.cs" />
      <Compile Include="Assets\Scripts\Enemies\LintExplosion.cs" />
      <Compile Include="Assets\Scripts\Enemies\SpiderController.cs" />
+     <Compile Include="Assets\Scripts\Enemies\SpiderHealth.cs" />
      <Compile Include="Assets\Scripts\Enemies\SpiderSpike.cs" />
      <Compile Include="Assets\Scripts\Platforms\StationaryUpDown.cs" />
      <Compile Include="Assets\Scripts\Platforms\UpDownWithParent.cs" />

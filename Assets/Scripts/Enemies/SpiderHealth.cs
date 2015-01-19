@@ -1,0 +1,34 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class SpiderHealth : MonoBehaviour
+{
+	private SpriteRenderer healthBar;
+	public GameObject healthObject;
+	private Vector3 healthScale;
+	private float healthFactor;
+	private Vector3 healthPosition;
+	private float healthBarRatio;
+	
+	void Awake ()
+	{
+		healthBar = healthObject.GetComponent<SpriteRenderer> ();
+		healthScale = healthBar.transform.localScale;
+		healthBarRatio = 1f / (SpiderController.getHealth ());
+	}
+	
+	public void Update ()
+	{
+		UpdateHealthBar ();
+		healthFactor = 1 - SpiderController.getHealth () * healthBarRatio;
+	}
+	
+	public void UpdateHealthBar ()
+	{
+		// Set the health bar's color to proportion of the way between green and red based on the player's health.
+		healthBar.material.color = Color.Lerp (Color.green, Color.red, healthFactor);
+		
+		// Set the scale of the health bar to be proportional to the player's health.
+		healthBar.transform.localScale = new Vector3 (healthScale.x * SpiderController.getHealth () * healthBarRatio, 1, 1);
+	}
+}

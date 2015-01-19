@@ -4,14 +4,15 @@ using System.Collections;
 public class HealthBar : MonoBehaviour
 {
 		private SpriteRenderer healthBar;
+	public GameObject healthObject;
 		private Vector3 healthScale;
 		private float healthFactor;
 		private Vector3 healthPosition;
-		public float healthBarRatio;
+		private float healthBarRatio;
 
 		void Awake ()
 		{
-				healthBar = GameObject.Find ("innerHealth").GetComponent<SpriteRenderer> ();
+				healthBar = healthObject.GetComponent<SpriteRenderer> ();
 				healthScale = healthBar.transform.localScale;
 				healthBarRatio = 1f / (SockyController.getHealth ());
 		}

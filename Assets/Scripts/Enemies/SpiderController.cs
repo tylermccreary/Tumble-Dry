@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SpiderController : MonoBehaviour
+public class SpiderController : MonoBehaviour, IEnemy
 {
 		private Transform player;
 		public float stillDelay;
@@ -27,6 +27,7 @@ public class SpiderController : MonoBehaviour
 		private string wallDetected = "None";
 		private const string LEFT_WALL = "LeftWall";
 		private const string RIGHT_WALL = "RightWall";
+		private static int health = 10;
 
 
 		public enum SpiderActionType
@@ -192,6 +193,35 @@ public class SpiderController : MonoBehaviour
 						SpiderSpike.setSpiderObject (this.transform.gameObject);
 				}
 				spiderCurrent = SpiderActionType.WalkAway;
+		}
+
+		public string getEnemyType ()
+		{
+				return "spider";
+		}
+
+		public void takeDamage (int amount)
+		{
+				health = health - amount;
+				if (health <= 0) {
+						die ();
+				}
+		}
+
+		public void doDamage ()
+		{
+				SockyController.doDamage (1);
+		}
+
+		public void die ()
+		{
+				//animate death
+				//delay
+				//show goal
+		}
+
+		public static int getHealth() {
+				return health;
 		}
 	
 }
