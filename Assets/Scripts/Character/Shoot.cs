@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Shoot : MonoBehaviour
 {
-		public bool shoot;
-		public GameObject elasticPic;
+		private bool shoot;
+		public GameObject elasticPrefab;
 		private static int elasticNum;
-		public bool facingRight;
 		public int maxElastic = 10;
 		public GameObject shootPoint;
 	
@@ -26,7 +25,7 @@ public class Shoot : MonoBehaviour
 		void shootElastic ()
 		{
 				if (elasticNum < maxElastic) {
-						GameObject elastic = (GameObject)Instantiate (elasticPic, new Vector3 (shootPoint.transform.position.x, shootPoint.transform.position.y, 0), Quaternion.identity);
+						GameObject elastic = (GameObject)Instantiate (elasticPrefab, new Vector3 (shootPoint.transform.position.x, shootPoint.transform.position.y, 0), Quaternion.identity);
 						elastic.renderer.sortingLayerName = "Foreground";
 						elasticNum += 1;
 				}

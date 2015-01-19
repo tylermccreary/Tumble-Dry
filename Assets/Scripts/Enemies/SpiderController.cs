@@ -7,20 +7,20 @@ public class SpiderController : MonoBehaviour
 		public float stillDelay;
 		public float jumpForce = 500f;
 		public float jumpDelay;
-		private Time startTime;
-		private Time currentTime;
 		public Transform leftWall;
 		public Transform rightWall;
 		public Transform groundCheck;
 		public Transform groundClose;
 		public Transform leftCheck;
 		public Transform rightCheck;
+		public LayerMask whatIsGround;
 		public float walkSpeed;
+		public GameObject shootPoints;
+		public GameObject spikePrefab;
 		private float move;
 		private const float DIST_FROM_SOCK = 4.0f;
 		public Animator anim;
 		float groundRadius = 0.2f;
-		public LayerMask whatIsGround;
 		bool grounded = false;
 		private bool living = true;
 		private bool inAir = false;
@@ -99,6 +99,7 @@ public class SpiderController : MonoBehaviour
 		
 		IEnumerator stillState ()
 		{
+				transform.rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
 				anim.speed = 1;
 				anim.Play ("Still");
 				yield return new WaitForSeconds (stillDelay);
@@ -107,8 +108,8 @@ public class SpiderController : MonoBehaviour
 
 		void walkState ()
 		{
-				if (leftCheck.transform.position.x > leftWall.transform.position.x &&
-						rightCheck.transform.position.x < rightWall.transform.position.x) {
+				if ((leftCheck.transform.position.x > leftWall.transform.position.x || wallDetected == LEFT_WALL) &&
+						(rightCheck.transform.position.x < rightWall.transform.position.x || wallDetected == RIGHT_WALL)) {
 						if (player.transform.position.x < transform.position.x - DIST_FROM_SOCK) {
 								//move left
 								move = -1.0f;
@@ -139,22 +140,24 @@ public class SpiderController : MonoBehaviour
 	
 		void walkAway ()
 		{
-				if (player.transform.position.x < transform.position.x) {
-						//move left
+				if (player.transform.position.x < transform.position.x && wallDetected == LEFT_WALL) {
+						//move right
 						move = 1.0f;
 						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * 2, rigidbody2D.velocity.y);
 						anim.Play ("WalkReverse");
-				} else if (player.transform.position.x > transform.position.x) {
-						//move right
+				} else if (player.transform.position.x > transform.position.x && wallDetected == RIGHT_WALL) {
+						//move left
 						move = -1.0f;
 						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * 2, rigidbody2D.velocity.y);
 						anim.Play ("Walk");
+				} else {
+						spiderCurrent = SpiderActionType.Still;
 				}
 				if (transform.position.x < 0 && wallDetected == RIGHT_WALL ||
 						transform.position.x > 0 && wallDetected == LEFT_WALL) {
 						/*leftCheck.transform.position.x < leftWall.transform.position.x && wallDetected == RIGHT_WALL ||
 				rightCheck.transform.position.x > rightWall.transform.position.x && wallDetected == LEFT_WALL*/
-						Debug.Log ("Hello");
+						wallDetected = "None";
 						spiderCurrent = SpiderActionType.Still;
 				}
 		}
@@ -172,7 +175,6 @@ public class SpiderController : MonoBehaviour
 
 		void landState ()
 		{
-				//land
 				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 				if (grounded) {
 						inAir = false;
@@ -184,7 +186,11 @@ public class SpiderController : MonoBehaviour
 		void shootState ()
 		{
 				//shoot
-		
+				anim.Play ("SpiderShoot");
+				foreach (Transform child in shootPoints.transform) {
+						GameObject spike = (GameObject)Instantiate (spikePrefab, new Vector3 (child.transform.position.x, child.transform.position.y, 0), Quaternion.identity);
+						SpiderSpike.setSpiderObject (this.transform.gameObject);
+				}
 				spiderCurrent = SpiderActionType.WalkAway;
 		}
 	
