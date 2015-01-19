@@ -122,7 +122,6 @@ public class SpiderController : MonoBehaviour, IEnemy
 								anim.Play ("WalkReverse");
 						} else {
 								spiderCurrent = SpiderActionType.Jump;
-								//anim.Play ("Still");
 						}
 				} else {
 						if (leftCheck.transform.position.x < leftWall.transform.position.x) {
