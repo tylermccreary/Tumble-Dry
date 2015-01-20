@@ -59,6 +59,9 @@ public class SpiderController : MonoBehaviour, IEnemy
 		// Update is called once per frame
 		void Update ()
 		{
+				if (SockyController.getHealth () == 0) {
+						spiderCurrent = SpiderActionType.Still;
+				}
 				switch (spiderCurrent) {
 				case SpiderActionType.Still:
 						anim.speed = 1;
@@ -199,7 +202,7 @@ public class SpiderController : MonoBehaviour, IEnemy
 		{
 				anim.Play ("Die");
 				Destroy (healthBar);
-				transform.rigidbody2D.velocity = new Vector2 (0, transform.rigidbody2D.velocity.y);
+				transform.rigidbody2D.velocity = new Vector2 (0, -10);
 				transform.rigidbody2D.isKinematic = true;
 				GameObject goal = (GameObject)Instantiate (goalPrefab, new Vector3 (transform.position.x, transform.position.y + 5, 0), Quaternion.identity);
 				thisScript.enabled = false;

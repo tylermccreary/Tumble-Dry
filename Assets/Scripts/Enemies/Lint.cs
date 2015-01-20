@@ -19,6 +19,7 @@ public class Lint : MonoBehaviour, IEnemy
 				hit = Physics2D.OverlapCircle (transform.position, lintRadius, player);
 				if (hit) {
 						doDamage ();
+						die ();
 				}
 		}
 
