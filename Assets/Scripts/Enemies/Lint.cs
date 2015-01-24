@@ -37,7 +37,7 @@ public class Lint : MonoBehaviour, IEnemy
 				LintExplosion.Instance.Explosion (transform.position);
 		}
 		
-		public string getEnemyType ()
+		public string getType ()
 		{
 				return "lint";
 		}

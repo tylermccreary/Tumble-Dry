@@ -7,7 +7,5 @@ public interface IEnemy {
 
 	void die();
 
-	string getEnemyType();
-
 	void doDamage();
 }

@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Crank : MonoBehaviour
 {
-
+		public LayerMask player;
 		private bool pullCrank;
 		private bool inRange;
 		private float crankRadius;
-		public LayerMask player;
 		private Animator animator;
+		private const string CRANK_BUTTON = "Fire2";
+		private const string CRANK_ANIM = "turnCrank";
 
-		// Use this for initialization
 		void Start ()
 		{
 				crankRadius = transform.GetComponent<CircleCollider2D> ().radius;
@@ -18,12 +18,11 @@ public class Crank : MonoBehaviour
 				pullCrank = false;
 				inRange = false;
 		}
-	
-		// Update is called once per frame
+
 		void Update ()
 		{
 				inRange = Physics2D.OverlapCircle (transform.position, crankRadius, player);
-				pullCrank = Input.GetButton ("Fire2");
+				pullCrank = Input.GetButton (CRANK_BUTTON);
 				if (pullCrank && inRange) {
 						triggerCrank ();
 				}
@@ -31,7 +30,7 @@ public class Crank : MonoBehaviour
 
 		void triggerCrank ()
 		{
-				animator.SetTrigger ("turnCrank");
+				animator.SetTrigger (CRANK_ANIM);
 				Box.openBox ();
 		}
 }

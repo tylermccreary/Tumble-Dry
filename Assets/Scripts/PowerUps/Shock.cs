@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Shock : MonoBehaviour
 {
-	
-		private float shockRadius;
 		public LayerMask player;
+		private float shockRadius;
 		private bool shock;
 		private GameObject enemy;
 		private const string LIGHTNING = "lightning";
+		private const string ENEMY_TAG = "Enemy";
 	
 		void Start ()
 		{
@@ -22,7 +22,7 @@ public class Shock : MonoBehaviour
 						PowerUpEffect.Instance.Explosion (transform.position, LIGHTNING);
 						Destroy (gameObject);
 						//find and destroy all enemies
-						object[] allEnemies = GameObject.FindGameObjectsWithTag ("Enemy");
+						object[] allEnemies = GameObject.FindGameObjectsWithTag (ENEMY_TAG);
 						foreach (object thisObject in allEnemies) {
 								enemy = (GameObject)thisObject;
 								LintExplosion.Instance.Explosion (enemy.gameObject.transform.position);

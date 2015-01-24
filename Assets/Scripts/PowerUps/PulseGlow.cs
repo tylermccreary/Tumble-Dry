@@ -4,31 +4,28 @@ using System.Collections;
 [RequireComponent(typeof(Light))]
 public class PulseGlow : MonoBehaviour
 {
-
-		//private Light pointLight;
+		public int speed;
 		public float pulseMinIntens = 5.0f;
 		public float pulseMaxIntens = 8.0f;
 		public float incMinIntens = 4.0f;
 		public float incMaxIntens = 8.0f;
-		private float minPulseVal;
+		private float minPulseVal = 0.25f;
 		private float pulseMultiplier;
 		private float time;
-		public int speed;
+		private const int POWERUP_LAYER = 10;
+		private const int DRYER_LAYER = 13;
 
-		// Use this for initialization
 		void Start ()
 		{
-				minPulseVal = 0.25f;
 				time = 0;
 		}
-	
-		// Update is called once per frame
+
 		void Update ()
 		{
 				time = time + Time.deltaTime;
-				if (gameObject.layer == 10) {
+				if (gameObject.layer == POWERUP_LAYER) {
 						pulse ();
-				} else if (gameObject.layer == 13) {
+				} else if (gameObject.layer == DRYER_LAYER) {
 						increase ();
 				}
 		}

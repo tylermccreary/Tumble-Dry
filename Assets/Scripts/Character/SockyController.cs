@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SockyController : MonoBehaviour
+public class SockyController : MonoBehaviour, IHealthy
 {
 
 		public float maxSpeed = 10f;
@@ -32,6 +32,7 @@ public class SockyController : MonoBehaviour
 		private float jumpSinRatio;
 		private float timerDif;
 		private static float powerJumpRatio;
+		private static bool living = true;
 
 		void Awake ()
 		{
@@ -157,6 +158,7 @@ public class SockyController : MonoBehaviour
 		void isDead ()
 		{
 				if (health <= 0) {
+						living = false;
 						Destroy (SockComponents);
 				}
 		}
@@ -184,8 +186,13 @@ public class SockyController : MonoBehaviour
 				return facingRight;
 		}
 
-		public static int getHealth ()
+		public int getHealth ()
 		{
 				return health;
+		}
+
+		public static bool isAlive ()
+		{
+				return living;
 		}
 }

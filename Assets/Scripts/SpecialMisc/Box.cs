@@ -5,8 +5,8 @@ public class Box : MonoBehaviour
 {
 	
 		private static Animator animator;
-
-		// Use this for initialization
+		private const string BOX_ANIM = "OpenBox";
+	
 		void Start ()
 		{
 				animator = GetComponent<Animator> ();
@@ -14,6 +14,6 @@ public class Box : MonoBehaviour
 
 		public static void openBox ()
 		{
-				animator.SetTrigger ("OpenBox");
+				animator.SetTrigger (BOX_ANIM);
 		}
 }

@@ -13,7 +13,6 @@ public class SpinRight : MonoBehaviour
 				speedActual = 5 * speed;
 		}
 
-		// Update is called once per frame
 		void FixedUpdate ()
 		{
 				if (right) {

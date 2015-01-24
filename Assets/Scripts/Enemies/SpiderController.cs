@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SpiderController : MonoBehaviour, IEnemy
+public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 {
 		private Transform player;
 		public float stillDelay;
@@ -59,7 +59,7 @@ public class SpiderController : MonoBehaviour, IEnemy
 		// Update is called once per frame
 		void Update ()
 		{
-				if (SockyController.getHealth () == 0) {
+				if (!SockyController.isAlive ()) {
 						spiderCurrent = SpiderActionType.Still;
 				}
 				switch (spiderCurrent) {
@@ -215,11 +215,6 @@ public class SpiderController : MonoBehaviour, IEnemy
 				}
 		}
 
-		public string getEnemyType ()
-		{
-				return "spider";
-		}
-
 		public void takeDamage (int amount)
 		{
 				health = health - amount;
@@ -233,7 +228,7 @@ public class SpiderController : MonoBehaviour, IEnemy
 				SockyController.doDamage (1);
 		}
 
-		public static int getHealth ()
+		public int getHealth ()
 		{
 				return health;
 		}

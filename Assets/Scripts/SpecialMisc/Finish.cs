@@ -3,24 +3,23 @@ using System.Collections;
 
 public class Finish : MonoBehaviour
 {
-	
-		private float finishRadius;
 		public LayerMask player;
-		GameObject socky;
+		private float finishRadius;
+		private GameObject socky;
 		private bool finish;
-	
-		// Use this for initialization
+		private const string SOCK_COMPONENTS = "SockComponents";
+
 		void Start ()
 		{
 				finishRadius = transform.GetComponent<CircleCollider2D> ().radius;
-				socky = GameObject.Find ("SockComponents");
+				socky = GameObject.Find (SOCK_COMPONENTS);
 		}
-	
-		// Update is called once per frame
+
 		void Update ()
 		{
 				finish = Physics2D.OverlapCircle (transform.position, finishRadius, player);
 				if (finish) {
+						//End of level. I'll eventually change this
 						Destroy (socky);
 				}
 		}
