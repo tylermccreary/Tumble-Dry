@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Dryer\DryerDamage.cs" />
      <Compile Include="Assets\Scripts\Dryer\DryerHoles.cs" />
      <Compile Include="Assets\Scripts\Dryer\Heat.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Damage.cs" />
      <Compile Include="Assets\Scripts\Enemies\IEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Lint.cs" />
      <Compile Include="Assets\Scripts\Enemies\LintExplosion.cs" />
