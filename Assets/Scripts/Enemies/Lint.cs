@@ -6,6 +6,7 @@ public class Lint : MonoBehaviour, IEnemy
 		private bool hit;
 		private float lintRadius;
 		public LayerMask player;
+		private const string LINT = "lint";
 
 
 		// Use this for initialization
@@ -23,7 +24,8 @@ public class Lint : MonoBehaviour, IEnemy
 				}
 		}
 
-		public void takeDamage(int amount) {
+		public void takeDamage (int amount)
+		{
 				die ();
 		}
 
@@ -32,13 +34,14 @@ public class Lint : MonoBehaviour, IEnemy
 				SockyController.doDamage (1);				
 		}
 
-		public void die() {
+		public void die ()
+		{
 				Destroy (gameObject);
 				LintExplosion.Instance.Explosion (transform.position);
 		}
 		
 		public string getType ()
 		{
-				return "lint";
+				return LINT;
 		}
 }

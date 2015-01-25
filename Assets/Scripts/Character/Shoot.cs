@@ -8,6 +8,8 @@ public class Shoot : MonoBehaviour
 		private static int elasticNum;
 		public int maxElastic = 10;
 		public GameObject shootPoint;
+		private const string SHOOT_BUTTON = "Fire1";
+		private const string FOREGROUND = "Foreground";
 	
 		void Start ()
 		{
@@ -16,7 +18,7 @@ public class Shoot : MonoBehaviour
 
 		void Update ()
 		{
-				shoot = Input.GetButtonDown ("Fire1");
+				shoot = Input.GetButtonDown (SHOOT_BUTTON);
 				if (shoot) {
 						shootElastic ();
 				}
@@ -26,7 +28,7 @@ public class Shoot : MonoBehaviour
 		{
 				if (elasticNum < maxElastic) {
 						GameObject elastic = (GameObject)Instantiate (elasticPrefab, new Vector3 (shootPoint.transform.position.x, shootPoint.transform.position.y, 0), Quaternion.identity);
-						elastic.renderer.sortingLayerName = "Foreground";
+						elastic.renderer.sortingLayerName = FOREGROUND;
 						elasticNum += 1;
 				}
 		}
@@ -36,7 +38,8 @@ public class Shoot : MonoBehaviour
 				elasticNum = elasticNum + amount;
 		}
 
-		public static int getElasticNum() {
+		public static int getElasticNum ()
+		{
 				return elasticNum;
 		}
 }

@@ -23,8 +23,6 @@ public class PowerJump : MonoBehaviour
 				powerJump = Physics2D.OverlapCircle (transform.position, powerJumpRadius, player);
 				if (powerJump) {
 						SockyController.setPowerJump ();
-						//GameObject jumpParticle = (GameObject) Instantiate(effect, new Vector3(transform.position.x,
-						//                  transform.position.y, 0), Quaternion.identity);
 						Destroy (gameObject);
 						PowerUpEffect.Instance.Explosion (transform.position, JUMP);
 						powerJump = false;

@@ -14,8 +14,11 @@ public class PowerUpEffect : MonoBehaviour
 		public ParticleSystem lightningEffect;
 		public ParticleSystem growEffect;
 		public ParticleSystem shrinkEffect;
-		
 		private ParticleSystem effect;
+		private const string JUMP = "jump";
+		private const string WATER = "water";
+		private const string LIGHTNING = "lightning";
+		private const string GROW = "grow";
 	
 		void Awake ()
 		{
@@ -34,13 +37,13 @@ public class PowerUpEffect : MonoBehaviour
 		public void Explosion (Vector3 position, string powerUp)
 		{
 				// Smoke on the water
-				if (powerUp == "jump") {
+				if (powerUp == JUMP) {
 						effect = jumpEffect;
-				} else if (powerUp == "water") {
+				} else if (powerUp == WATER) {
 						effect = waterEffect;
-				} else if (powerUp == "lightning") {
+				} else if (powerUp == LIGHTNING) {
 						effect = lightningEffect;
-				} else if (powerUp == "grow") {
+				} else if (powerUp == GROW) {
 						effect = growEffect;
 				} else {
 						effect = shrinkEffect;

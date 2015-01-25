@@ -13,6 +13,10 @@ public class ChangeDryerSize : MonoBehaviour
 		private static bool shrunk;
 		private const string SHRINK = "shrink";
 		private const string GROW = "grow";
+		private const string GTS_TRIGGER = "GrowToShrink";
+		private const string SHRINK_TRIGGER = "Shrink";
+		private const string STG_TRIGGER = "ShrinkToGrow";
+		private const string GROW_TRIGGER = "Grow";
 	
 		// Use this for initialization
 		void Start ()
@@ -26,25 +30,25 @@ public class ChangeDryerSize : MonoBehaviour
 		void Update ()
 		{
 				change = Physics2D.OverlapCircle (transform.position, powerUpRadius, player);
-		if (change) {
-			Destroy (gameObject);
+				if (change) {
+						Destroy (gameObject);
 						if (shrink) {
 								PowerUpEffect.Instance.Explosion (transform.position, SHRINK);
 								shrunk = true;
 								if (grown) {
 										grown = false;
-										animator.SetTrigger ("GrowToShrink");
+										animator.SetTrigger (GTS_TRIGGER);
 								} else {
-										animator.SetTrigger ("Shrink");
+										animator.SetTrigger (SHRINK_TRIGGER);
 								}
 						} else {
 								PowerUpEffect.Instance.Explosion (transform.position, GROW);
 								grown = true;
 								if (shrunk) {
 										shrunk = false;
-										animator.SetTrigger ("ShrinkToGrow");
+										animator.SetTrigger (STG_TRIGGER);
 								} else {
-										animator.SetTrigger ("Grow");
+										animator.SetTrigger (GROW_TRIGGER);
 								}
 						}
 				}

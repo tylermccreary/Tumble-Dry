@@ -6,6 +6,8 @@ public class SpiderSpike : MonoBehaviour
 
 		public float speed;
 		private static GameObject lintSpider;
+		private const int PLAYER_LAYER = 8;
+		private const int ENEMY_LAYER = 11;
 
 		void Start ()
 		{
@@ -19,10 +21,10 @@ public class SpiderSpike : MonoBehaviour
 
 		void OnTriggerEnter2D (Collider2D coll)
 		{
-				if (coll.gameObject.layer == 8) {
+				if (coll.gameObject.layer == PLAYER_LAYER) {
 						Destroy (gameObject);
 						SockyController.doDamage (1);
-				} else if (coll.gameObject.layer != 11) {
+				} else if (coll.gameObject.layer != ENEMY_LAYER) {
 						Destroy (gameObject);
 				}
 		}

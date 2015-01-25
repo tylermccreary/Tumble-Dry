@@ -4,7 +4,7 @@ using System.Collections;
 public class DryerDamage : MonoBehaviour
 {
 
-		static public float heatThreshold = 80f;
+		public static float heatThreshold = 80f;
 
 		void OnCollisionEnter2D (Collision2D coll)
 		{
