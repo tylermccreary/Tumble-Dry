@@ -3,33 +3,42 @@ using System.Collections;
 
 public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 {
-		private Transform player;
 		public float stillDelay;
 		public float jumpForce = 500f;
 		public float jumpDelay;
+		public float walkSpeed;
+		private Transform player;
 		public Transform leftWall;
 		public Transform rightWall;
 		public Transform groundCheck;
-		public Transform groundClose;
 		public Transform leftCheck;
 		public Transform rightCheck;
 		public LayerMask whatIsGround;
-		public float walkSpeed;
 		public GameObject shootPoints;
 		public GameObject spikePrefab;
+		public GameObject healthBar;
+		public GameObject goalPrefab;
 		private float move;
 		private const float DIST_FROM_SOCK = 4.0f;
 		public Animator anim;
-		float groundRadius = 0.2f;
-		bool grounded = false;
+		private float groundRadius = 0.2f;
+		private bool grounded = false;
 		private bool inAir = false;
+		private static int health = 10;
+		private MonoBehaviour thisScript;
 		private string wallDetected = "None";
 		private const string LEFT_WALL = "LeftWall";
 		private const string RIGHT_WALL = "RightWall";
-		private static int health = 10;
-		public GameObject healthBar;
-		public GameObject goalPrefab;
-		private MonoBehaviour thisScript;
+		private const string NO_WALL = "None";
+		private const string PLAYER = "Player";
+		private const string SPIDER_CTRL = "SpiderController";
+		private const string ANIM_STILL = "Still";
+		private const string ANIM_JUMP = "Jump";
+		private const string ANIM_LAND = "Land";
+		private const string ANIM_DIE = "Die";
+		private const string ANIM_WALK = "Walk";
+		private const string ANIM_WALK_REVERSE = "WalkReverse";
+		private const string ANIM_SHOOT = "SpiderShoot";
 
 		public enum SpiderActionType
 		{
@@ -46,14 +55,14 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 
 		void Awake ()
 		{
-				player = GameObject.FindGameObjectWithTag ("Player").transform;
+				player = GameObject.FindGameObjectWithTag (PLAYER).transform;
 
 		}
 
 		// Use this for initialization
 		void Start ()
 		{
-				thisScript = (MonoBehaviour)GetComponent ("SpiderController");
+				thisScript = (MonoBehaviour)GetComponent (SPIDER_CTRL);
 		}
 	
 		// Update is called once per frame
@@ -104,7 +113,7 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 		{
 				transform.rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
 				anim.speed = 1;
-				anim.Play ("Still");
+				anim.Play (ANIM_STILL);
 				yield return new WaitForSeconds (stillDelay);
 				spiderCurrent = SpiderActionType.Walk;
 		}
@@ -114,15 +123,9 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 				if ((leftCheck.transform.position.x > leftWall.transform.position.x || wallDetected == LEFT_WALL) &&
 						(rightCheck.transform.position.x < rightWall.transform.position.x || wallDetected == RIGHT_WALL)) {
 						if (player.transform.position.x < transform.position.x - DIST_FROM_SOCK) {
-								//move left
-								move = -1.0f;
-								transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
-								anim.Play ("Walk");
+								moveLeft (1);
 						} else if (player.transform.position.x > transform.position.x + DIST_FROM_SOCK) {
-								//move right
-								move = 1.0f;
-								transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed, rigidbody2D.velocity.y);
-								anim.Play ("WalkReverse");
+								moveRight (1);
 						} else {
 								spiderCurrent = SpiderActionType.Jump;
 						}
@@ -135,7 +138,6 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 						spiderCurrent = SpiderActionType.Shoot;
 				}
 				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
-				//if character shot
 				if (Shoot.getElasticNum () != 0 && grounded) {
 						spiderCurrent = SpiderActionType.Jump;
 				}
@@ -144,34 +146,25 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 		void walkAway ()
 		{
 				if (player.transform.position.x < transform.position.x && wallDetected == LEFT_WALL) {
-						//move right
-						move = 1.0f;
-						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * 2, rigidbody2D.velocity.y);
-						anim.Play ("WalkReverse");
+						moveRight (2);
 				} else if (player.transform.position.x > transform.position.x && wallDetected == RIGHT_WALL) {
-						//move left
-						move = -1.0f;
-						transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * 2, rigidbody2D.velocity.y);
-						anim.Play ("Walk");
+						moveLeft (2);
 				} else {
 						spiderCurrent = SpiderActionType.Still;
 				}
 				if (transform.position.x < 0 && wallDetected == RIGHT_WALL ||
 						transform.position.x > 0 && wallDetected == LEFT_WALL) {
-						/*leftCheck.transform.position.x < leftWall.transform.position.x && wallDetected == RIGHT_WALL ||
-				rightCheck.transform.position.x > rightWall.transform.position.x && wallDetected == LEFT_WALL*/
-						wallDetected = "None";
+						wallDetected = NO_WALL;
 						spiderCurrent = SpiderActionType.Still;
 				}
 		}
 
 		IEnumerator jumpState ()
 		{
-				anim.Play ("Jump");
+				anim.Play (ANIM_JUMP);
 				yield return new WaitForSeconds (jumpDelay);
 				if (!inAir) {
 						inAir = true;
-						//this.rigidbody2D.AddForce (new Vector2 (0, jumpForce));
 						this.rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, 10);
 				}
 				spiderCurrent = SpiderActionType.Land;
@@ -182,25 +175,38 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 				grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 				if (grounded) {
 						inAir = false;
-						anim.Play ("Land");
+						anim.Play (ANIM_LAND);
 						spiderCurrent = SpiderActionType.Walk;
 				}
 		}
 
 		void shootState ()
 		{
-				//shoot
-				anim.Play ("SpiderShoot");
+				anim.Play (ANIM_SHOOT);
 				foreach (Transform child in shootPoints.transform) {
 						GameObject spike = (GameObject)Instantiate (spikePrefab, new Vector3 (child.transform.position.x, child.transform.position.y, 0), Quaternion.identity);
 						SpiderSpike.setSpiderObject (this.transform.gameObject);
 				}
 				spiderCurrent = SpiderActionType.WalkAway;
 		}
+
+		void moveLeft (int speed)
+		{
+				move = -1.0f;
+				transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * speed, rigidbody2D.velocity.y);
+				anim.Play (ANIM_WALK);
+		}
+
+		void moveRight (int speed)
+		{
+				move = 1.0f;
+				transform.rigidbody2D.velocity = new Vector2 (move * walkSpeed * speed, rigidbody2D.velocity.y);
+				anim.Play (ANIM_WALK_REVERSE);
+		}
 	
 		public void die ()
 		{
-				anim.Play ("Die");
+				anim.Play (ANIM_DIE);
 				Destroy (healthBar);
 				transform.rigidbody2D.velocity = new Vector2 (0, -10);
 				transform.rigidbody2D.isKinematic = true;
