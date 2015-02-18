@@ -19,7 +19,7 @@ public class Finish : MonoBehaviour
 		{
 				finish = Physics2D.OverlapCircle (transform.position, finishRadius, player);
 				if (finish) {
-						//End of level. I'll eventually change this
+						//End of level. Change Later
 						Destroy (socky);
 				}
 		}

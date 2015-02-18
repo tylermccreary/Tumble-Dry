@@ -165,7 +165,9 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 				yield return new WaitForSeconds (jumpDelay);
 				if (!inAir) {
 						inAir = true;
-						this.rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, 10);
+						if (spiderCurrent != SpiderActionType.Die) {
+								this.rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, 10);
+						}
 				}
 				spiderCurrent = SpiderActionType.Land;
 		}
@@ -231,7 +233,9 @@ public class SpiderController : MonoBehaviour, IEnemy, IHealthy
 
 		public void doDamage ()
 		{
-				SockyController.doDamage (1);
+				if (spiderCurrent != SpiderActionType.Die) {
+						SockyController.doDamage (1);
+				}
 		}
 
 		public int getHealth ()

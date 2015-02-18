@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/** This is a class that controls the elastic that
- * the player shoots.
- **/
 public class ElasticMove : MonoBehaviour
 {
 

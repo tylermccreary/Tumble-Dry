@@ -13,13 +13,9 @@ public class DryerHoles : MonoBehaviour
 		private float y;
 		private Vector3 pos;
 		public GameObject holes;
-	
-		/// <summary>
-		/// Update this instance.
-		/// </summary>
+
 		void Update ()
 		{
-				// If the radius or point count has changed, update the circle
 				if (!Application.isPlaying && done == false) {
 						if (CurrentRadius != Radius) {
 								CreateCircle ();
@@ -27,10 +23,7 @@ public class DryerHoles : MonoBehaviour
 						}
 				}
 		}
-	
-		/// <summary>
-		/// Creates the circle.
-		/// </summary>
+
 		void CreateCircle ()
 		{
 				for (int loop = 0; loop <= NumPoints; loop++) {
@@ -39,7 +32,8 @@ public class DryerHoles : MonoBehaviour
 						y = Mathf.Cos (angle) * Radius;
 
 						pos = new Vector3 (-x, -y, 0.0f);
-
+						
+						//Sprite was backwards.
 						Instantiate (holes, pos, Quaternion.AngleAxis (90 - (180 * angle) / Mathf.PI, Vector3.forward));
 				}
 				CurrentRadius = Radius;

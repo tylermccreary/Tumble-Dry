@@ -10,29 +10,19 @@ public class CircleEdgeCollider2D : MonoBehaviour
 		public float widden = 1.05f;
 		EdgeCollider2D EdgeCollider;
 		float CurrentRadius = 0.0f;
-	
-		/// <summary>
-		/// Start this instance.
-		/// </summary>
+
 		void Start ()
 		{
 				CreateCircle ();
 		}
-	
-		/// <summary>
-		/// Update this instance.
-		/// </summary>
+
 		void Update ()
 		{
-				// If the radius or point count has changed, update the circle
 				if (NumPoints != EdgeCollider.pointCount || CurrentRadius != Radius) {
 						CreateCircle ();
 				}
 		}
-	
-		/// <summary>
-		/// Creates the circle.
-		/// </summary>
+
 		void CreateCircle ()
 		{
 				Vector2[] edgePoints = new Vector2[NumPoints + 1];

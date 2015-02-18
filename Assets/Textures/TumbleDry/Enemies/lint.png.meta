@@ -1,6 +1,9 @@
 fileFormatVersion: 2
 guid: 3ac65cbd60748ea48a7dc3bc322b9646
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: lintBody
+    21300002: lintEye
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

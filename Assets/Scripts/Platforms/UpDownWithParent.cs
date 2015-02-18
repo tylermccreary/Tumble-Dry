@@ -9,7 +9,7 @@ public class UpDownWithParent : MonoBehaviour
 		Vector2 parentPos;
 		Vector2 currentPos;
 		Vector2 intercept;
-		// Use this for initialization
+
 		IEnumerator Start ()
 		{
 				intercept = new Vector2 (0, distance);

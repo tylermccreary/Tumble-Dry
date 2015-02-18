@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CoolDryer : MonoBehaviour
 {
-	
 		private float waterRadius;
 		public LayerMask player;
 		private bool water;

@@ -8,8 +8,6 @@ public class Lint : MonoBehaviour, IEnemy
 		public LayerMask player;
 		private const string LINT = "lint";
 
-
-		// Use this for initialization
 		void Start ()
 		{
 				lintRadius = transform.GetComponent<CircleCollider2D> ().radius;

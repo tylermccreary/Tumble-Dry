@@ -21,7 +21,6 @@ public class Shock : MonoBehaviour
 				if (shock) {
 						PowerUpEffect.Instance.Explosion (transform.position, LIGHTNING);
 						Destroy (gameObject);
-						//find and destroy all enemies
 						object[] allEnemies = GameObject.FindGameObjectsWithTag (ENEMY_TAG);
 						foreach (object thisObject in allEnemies) {
 								enemy = (GameObject)thisObject;

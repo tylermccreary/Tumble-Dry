@@ -9,7 +9,7 @@ public class StationaryUpDown : MonoBehaviour
 
 		IEnumerator Start ()
 		{
-		float interval = 10 / speed * distance;
+				float interval = 10 / speed * distance;
 				Vector2 pointB;
 				if (goUp) {
 						pointB = new Vector2 (transform.position.x, transform.position.y + distance);

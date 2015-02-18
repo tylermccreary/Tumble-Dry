@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SockyController : MonoBehaviour, IHealthy
 {
-
 		public float maxSpeed = 10f;
 		private float speed;
 		private static float jumpForce = 400f;
@@ -31,25 +30,18 @@ public class SockyController : MonoBehaviour, IHealthy
 		private float timerNow;
 		private float jumpSinRatio;
 		private float timerDif;
-		private static float powerJumpRatio;
+		private const float POWER_JUMP_RATIO = 1.2f;
 		private static bool living = true;
 
-		void Awake ()
+		void Start ()
 		{
 				timerPrev = 0;
 				animator = GetComponent<Animator> ();
-				powerJumpRatio = 1.2f;
-		}
-
-		// Use this for initialization
-		void Start ()
-		{
 				jumpAnimInt = 0;
 				SockComponents = GameObject.Find ("SockComponents");
 				speed = maxSpeed;
 		}
-	
-		// Update is called once per frame
+
 		void FixedUpdate ()
 		{
 				move = Input.GetAxis ("Horizontal");
@@ -126,7 +118,7 @@ public class SockyController : MonoBehaviour, IHealthy
 		void jumpSin ()
 		{
 				timerNow = Time.time;
-				timerDif = (timerNow - timerPrev);// / 1000;
+				timerDif = (timerNow - timerPrev);
 				if (timerDif < 1) {
 						jumpSinRatio = Mathf.Sin (timerDif) * 2.5f;
 				} else {
@@ -171,7 +163,7 @@ public class SockyController : MonoBehaviour, IHealthy
 		public static void setPowerJump ()
 		{
 				if (!powerJump) {
-						jumpForce = jumpForce * powerJumpRatio;
+						jumpForce = jumpForce * POWER_JUMP_RATIO;
 				}
 				powerJump = true;
 		}

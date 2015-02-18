@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ChangeDryerSize : MonoBehaviour
 {
-	
 		private float powerUpRadius;
 		public LayerMask player;
 		public bool shrink;
@@ -17,16 +16,14 @@ public class ChangeDryerSize : MonoBehaviour
 		private const string SHRINK_TRIGGER = "Shrink";
 		private const string STG_TRIGGER = "ShrinkToGrow";
 		private const string GROW_TRIGGER = "Grow";
-	
-		// Use this for initialization
+
 		void Start ()
 		{
 				powerUpRadius = transform.GetComponent<CircleCollider2D> ().radius;
 				grown = false;
 				shrunk = false;
 		}
-	
-		// Update is called once per frame
+
 		void Update ()
 		{
 				change = Physics2D.OverlapCircle (transform.position, powerUpRadius, player);
